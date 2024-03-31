@@ -1,8 +1,8 @@
-.main {
-}
-
 /* 日付ごとのカード */
 .card {
   height: 8rem;
   border: 1px solid #777;
+}
+.flex {
+  display: flex;
 }

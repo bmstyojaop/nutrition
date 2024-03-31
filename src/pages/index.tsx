@@ -1,8 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import { Badge, Card, Group, Stack, Text } from '@mantine/core'
+import styles from '@/pages/Home.module.css'
+import { Badge, Card, Group, List, Space, Stack, Text } from '@mantine/core'
+import { Ingredient, Nutrient } from '@/common/types/types'
+import { NUTRIENTS } from '@/common/constants/constants'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,20 +16,31 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <DailyCard />
+      <main className={`${inter.className}`}>
+        <DailyCard categoryList={['FATS', 'PROTEIN']} />
       </main>
     </>
   )
 }
 
-const DailyCard = () => {
+const CategoryBadge = (props: Nutrient) => {
+  return (
+    <Badge size='xs' color='pink'>
+      脂質
+    </Badge>
+  )
+}
+
+const DailyCard = (props: { categoryList: Nutrient[] }) => {
   return (
     <Card shadow='sm' padding='lg' radius='md' withBorder>
       <Text>2024/04/01</Text>
       <div>
         <Group>
-          <Badge size='xs' color='blue'>
+          {props.categoryList.map((category) => {
+            return <CategoryBadge key={category} category={category} />
+          })}
+          {/* <Badge size='xs' color='blue'>
             ミネラル
           </Badge>
           <Badge size='xs' color='pink'>
@@ -37,15 +49,43 @@ const DailyCard = () => {
           <Badge size='xs' color='yellow'>
             炭水化物
           </Badge>
-          <Badge size='xs' color='green'></Badge>
-          <Badge size='xs' color='orange'></Badge>
+          <Badge size='xs' color='green'>
+            ビタミン
+          </Badge>
+          <Badge size='xs' color='orange'>
+            タンパク質
+          </Badge> */}
         </Group>
         <Text size='sm'>鶏むね肉とじゃがいもの肉じゃが</Text>
       </div>
-      <Text size='sm' c='dimmed'>
-        With Fjord Tours you can explore more of the magical fjord landscapes with tours
-        and activities on and around the fjords of Norway
-      </Text>
+      <List type='unordered' size='xs' c='dimmed'>
+        <Ingredient name='人参' />
+        <Ingredient name='じゃがいも' amount={60} unit='g' />
+        <Ingredient name='鰹出汁' otherUnit='適量' />
+      </List>
     </Card>
+  )
+}
+
+const Ingredient = (props: Ingredient) => {
+  return (
+    <List.Item>
+      <div className={`${styles.flex}`}>
+        <span>{props.name}</span>
+        {props.amount && (
+          <>
+            <Space w='xs' />
+            <span>{props.amount}</span>
+            <span>{props.unit}</span>
+          </>
+        )}
+        {props.otherUnit && (
+          <>
+            <Space w='xs' />
+            <span>{props.otherUnit}</span>
+          </>
+        )}
+      </div>
+    </List.Item>
   )
 }
