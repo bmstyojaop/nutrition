@@ -1,9 +1,7 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import styles from '@/pages/Home.module.css'
-import { Badge, Card, Group, List, Space, Stack, Text } from '@mantine/core'
-import { Ingredient, Nutrient } from '@/common/types/types'
-import { NUTRIENTS } from '@/common/constants/constants'
+import { Flex } from '@mantine/core'
+import { DailyCard } from './components/DailyCard'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,76 +14,13 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className={`${inter.className}`}>
-        <DailyCard categoryList={['FATS', 'PROTEIN']} />
+      <main className={`bg_basic flex ${inter.className}`}>
+        <Flex direction={{ base: 'column', sm: 'row' }} gap={{ base: 'sm', sm: 'lg' }} justify='center'>
+          <DailyCard />
+          <DailyCard />
+          <DailyCard />
+        </Flex>
       </main>
     </>
-  )
-}
-
-const CategoryBadge = (props: Nutrient) => {
-  return (
-    <Badge size='xs' color='pink'>
-      脂質
-    </Badge>
-  )
-}
-
-const DailyCard = (props: { categoryList: Nutrient[] }) => {
-  return (
-    <Card shadow='sm' padding='lg' radius='md' withBorder>
-      <Text>2024/04/01</Text>
-      <div>
-        <Group>
-          {props.categoryList.map((category) => {
-            return <CategoryBadge key={category} category={category} />
-          })}
-          {/* <Badge size='xs' color='blue'>
-            ミネラル
-          </Badge>
-          <Badge size='xs' color='pink'>
-            脂質
-          </Badge>
-          <Badge size='xs' color='yellow'>
-            炭水化物
-          </Badge>
-          <Badge size='xs' color='green'>
-            ビタミン
-          </Badge>
-          <Badge size='xs' color='orange'>
-            タンパク質
-          </Badge> */}
-        </Group>
-        <Text size='sm'>鶏むね肉とじゃがいもの肉じゃが</Text>
-      </div>
-      <List type='unordered' size='xs' c='dimmed'>
-        <Ingredient name='人参' />
-        <Ingredient name='じゃがいも' amount={60} unit='g' />
-        <Ingredient name='鰹出汁' otherUnit='適量' />
-      </List>
-    </Card>
-  )
-}
-
-const Ingredient = (props: Ingredient) => {
-  return (
-    <List.Item>
-      <div className={`${styles.flex}`}>
-        <span>{props.name}</span>
-        {props.amount && (
-          <>
-            <Space w='xs' />
-            <span>{props.amount}</span>
-            <span>{props.unit}</span>
-          </>
-        )}
-        {props.otherUnit && (
-          <>
-            <Space w='xs' />
-            <span>{props.otherUnit}</span>
-          </>
-        )}
-      </div>
-    </List.Item>
   )
 }

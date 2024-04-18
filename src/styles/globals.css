@@ -1,5 +1,19 @@
+/* variables */
+:root {
+  --bg: #f0f0f0;
+  --layer-1: #f5f5f5;
+}
+
+.size_screen {
+  height: 100vh;
+  width: 100vw;
+}
+
+.bg_basic {
+  background-color: var(--bg);
+}
+
 /* utility */
-/* display */
 .flex {
   display: flex;
 }
@@ -8,4 +22,7 @@
 }
 .grid {
   display: grid;
+}
+.border {
+  border: 1px solid gray;
 }

@@ -1,8 +1,5 @@
-/* 日付ごとのカード */
-.card {
-  height: 8rem;
-  border: 1px solid #777;
-}
-.flex {
-  display: flex;
+.card_item {
+  border-top: 0.5px solid #e5e5e5;
+  border-bottom: 0.5px solid #e5e5e5;
+  padding: 2rem 0;
 }
